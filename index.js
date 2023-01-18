@@ -10,8 +10,14 @@ server.use(express.json());
 
 server.use(cors());
 
-server.get("/", (req, res) => {
-  res.send("welcome");
+server.get("/", async (req, res) => {
+  try {
+    const data = await ProductModel.find();
+    res.send(data);
+  } catch (error) {
+    console.log(error);
+    res.send(error);
+  }
 });
 server.post("/register", async (req, res) => {
   const { name, email, password } = req.body;
@@ -65,15 +71,15 @@ server.post("/post", async (req, res) => {
     res.send("error");
   }
 });
-server.get("/data", async (req, res) => {
-  try {
-    const data = await ProductModel.find();
-    res.send(data);
-  } catch (error) {
-    console.log(error);
-    res.send(error);
-  }
-});
+// server.get("/data", async (req, res) => {
+//   try {
+//     const data = await ProductModel.find();
+//     res.send(data);
+//   } catch (error) {
+//     console.log(error);
+//     res.send(error);
+//   }
+// });
 server.listen(3500, async () => {
   try {
     await connect;
