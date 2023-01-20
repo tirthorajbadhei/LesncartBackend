@@ -56,6 +56,15 @@ server.post("/login", async (req, res) => {
     res.send("wrong entry");
   }
 });
+server.get("/user", async (req, res) => {
+  try {
+    const data = await RegisterModel.find();
+    res.send(data);
+  } catch (error) {
+    console.log(error);
+    res.send(error);
+  }
+});
 server.post("/post", async (req, res) => {
   const data = req.body;
   try {
